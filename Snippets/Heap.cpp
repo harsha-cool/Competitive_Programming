@@ -1,3 +1,4 @@
+// 0 based indexing
 void max_heapify(vi &A, int i,int N)
 {
      int left = 2*i+1;
@@ -13,7 +14,39 @@ void max_heapify(vi &A, int i,int N)
      }
 }
 
-void build_max_heap(vi &A,int N)
+void build_max_heap(vi &A)
 {
-    for(int i=N/2;i>=1;i--) max_heapify(A,i-1,N);
+     int N = A.size();
+     for(int i=N/2;i>=1;i--) max_heapify(A,i-1,N);
+}
+
+void delete_heap(vi &A)
+{
+     int N = A.size();
+     A[0] = A[N-1];
+     max_heapify(A,0,N-1);
+     A.erase(A.end()-1);
+}
+
+void insert_heap(vi &A)
+{
+     int N = A.size();
+     A.pb(x);
+     int i = N;
+     while(i>0 && A[i] > A[(i-1)/2])
+     {
+          swap(A[i],A[(i-1)/2]);
+          i  =(i-1)/2;
+     }
+}
+
+void heap_sort(vi &A)
+{
+     int N = A.size();
+     build_max_heap(A);
+     ROF(i,0,N)
+     {
+          swap(A[0],A[i]);
+          max_heapify(A,0,i);
+     }
 }
